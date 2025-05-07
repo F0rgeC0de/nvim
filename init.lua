@@ -836,7 +836,7 @@ require('lazy').setup({
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
+        nerd_font_variant = 'normal',
       },
 
       completion = {
@@ -911,24 +911,8 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
-    end,
+      -- NOTE: Removed Kickstart.nvim status line       
+    end 
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -947,6 +931,16 @@ require('lazy').setup({
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "gnn", -- set to `false` to disable one of the mappings
+          node_incremental = "grn",
+          scope_incremental = "grc",
+          node_decremental = "grm",
+        },
+      }  
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
@@ -955,8 +949,35 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  
+  -- NOTE: This section adds the tree sitter parser for the PowerOn programming language.
+    config = function(_, opts)
+        -- below code adds additional parser
 
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
+        local git_user = "phileagleson"
+        local git_repo = "tree-sitter-poweron"
+        local git_repo_url = "https://github.com/"..git_user.."/"..git_repo
+        local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+        parser_config.poweron = {
+            install_info = {
+                url = git_repo_url, -- local path or git repo
+                files = {"src/parser.c", "src/scanner.cc"}, -- note that some parsers also require src/scanner.c or src/scanner.cc
+                -- optional entries:
+                branch = "main", -- default branch in case of git repo if different from master
+                generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+                requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+            },
+            filetype = "poweron", -- if filetype does not match the parser name
+        }
+        vim.treesitter.language.register('poweron', {'poweron', 'po'})
+        require("nvim-treesitter.configs").setup(opts)
+      end
+    ,
+    {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' }
+  }
+   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
 
