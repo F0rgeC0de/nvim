@@ -10,18 +10,32 @@
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  --// NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
-  --
+  --// NOTE: Plugins can also be added by using a table,
+  --// with the first argument being the link and the following
+  --// keys can be used to configure plugin behavior/loading/etc.
+  --//
+  --// Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
+  --//
 
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
+if vim.g.vscode then
+  -- VSCode Neovim
+  require "user.vscode_keymaps"
+
+  require 'kickstart/plugins/lspconfig',
+
+  require 'kickstart/plugins/conform',
+
+  require 'kickstart/plugins/mini',
+
+  require 'kickstart/plugins/treesitter',
+else
+  -- Ordinary Neovim
+
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   require 'kickstart/plugins/gitsigns',
 
@@ -43,6 +57,9 @@ require('lazy').setup({
 
   require 'kickstart/plugins/treesitter',
 
+  require 'kickstart.plugins.neo-tree',
+end
+
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -56,7 +73,6 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
@@ -65,7 +81,7 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
+  -- Or use telescope! (Only in native neovim)
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
