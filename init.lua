@@ -83,21 +83,9 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
-if vim.g.vscode then
-  -- VSCode Neovim
-  local keymap = vim.keymap.set
-  local opts = { noremap = true, silent = true }
 
-  -- remap leader key
-  keymap('n', '<Space>', '', opts)
-  vim.g.mapleader = '<Space>'
-  vim.g.maplocalleader = '<Space>'
-else
-  -- Ordinary Neovim
-  --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-  vim.g.mapleader = ' '
-  vim.g.maplocalleader = ' '
-end
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
