@@ -7,9 +7,7 @@
 --
 --  To update plugins you can run
 --    :Lazy update
---
--- NOTE: Here is where you install your plugins.
-require('lazy').setup({
+
   --// NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 
   --// NOTE: Plugins can also be added by using a table,
@@ -21,9 +19,13 @@ require('lazy').setup({
 
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
+
+-- NOTE: Here is where you install your plugins.
+
 if vim.g.vscode then
   -- VSCode Neovim
-  require "user.vscode_keymaps"
+  
+require('lazy').setup({
 
   require 'kickstart/plugins/lspconfig',
 
@@ -31,8 +33,32 @@ if vim.g.vscode then
 
   require 'kickstart/plugins/mini',
 
-  require 'kickstart/plugins/treesitter',
+  require 'kickstart/plugins/treesitter'
+
+}, {
+  ui = {
+    -- If you are using a Nerd Font: set icons to an empty table which will use the
+    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '🛠',
+      event = '📅',
+      ft = '📂',
+      init = '⚙',
+      keys = '🗝',
+      plugin = '🔌',
+      runtime = '💻',
+      require = '🌙',
+      source = '📄',
+      start = '🚀',
+      task = '📌',
+      lazy = '💤 ',
+    },
+  },
+})
 else
+  require('lazy').setup({
+
   -- Ordinary Neovim
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
@@ -57,8 +83,7 @@ else
 
   require 'kickstart/plugins/treesitter',
 
-  require 'kickstart.plugins.neo-tree',
-end
+  require 'kickstart.plugins.neo-tree'
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -105,5 +130,6 @@ end
     },
   },
 })
+end
 
 -- vim: ts=2 sts=2 sw=2 et
