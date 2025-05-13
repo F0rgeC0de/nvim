@@ -94,6 +94,12 @@ vim.g.have_nerd_font = false
 require 'options'
 
 -- [[ Basic Keymaps ]]
+if vim.g.vscode then
+  -- VSCode Neovim
+  require "vs_keymaps"
+else
+  -- Ordinary Neovim
+end
 require 'keymaps'
 
 -- [[ Install `lazy.nvim` plugin manager ]]

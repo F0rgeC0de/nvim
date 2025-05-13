@@ -21,7 +21,9 @@
   -- include a plugin definition from file lua/path/name.lua
 
 -- NOTE: Here is where you install your plugins.
-
+-- In this Configuration, add the plugins you want in each editor under the relavent section below
+-- The core kickstart plugins that are compatible (out of the box) with VSCode are included in both configs
+  
 if vim.g.vscode then
   -- VSCode Neovim
   
