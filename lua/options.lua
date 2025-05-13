@@ -23,6 +23,8 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
+vim.opt.shell = 'powershell.exe'
+
 -- Enable break indent
 vim.opt.breakindent = true
 
