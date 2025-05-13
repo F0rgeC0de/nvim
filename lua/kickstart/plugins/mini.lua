@@ -27,11 +27,21 @@ return {
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
+      statusline.section_diff = function()
+        return ''
       end
 
+      statusline.section_filename = function()
+        return ''
+      end
+
+      statusline.section_fileinfo = function()
+        return ''
+      end
+
+      statusline.section_location = function()
+        return ''
+      end
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
