@@ -43,3 +43,24 @@ keymap({"n", "v"}, "<leader>h9", "<cmd>lua require('vscode').action('vscode-harp
 keymap({"n", "v"}, "<leader>pa", "<cmd>lua require('vscode').action('projectManager.saveProject')<CR>")
 keymap({"n", "v"}, "<leader>po", "<cmd>lua require('vscode').action('projectManager.listProjectsNewWindow')<CR>")
 keymap({"n", "v"}, "<leader>pe", "<cmd>lua require('vscode').action('projectManager.editProjects')<CR>")
+
+
+-- AUTOCOMMANDS
+
+-- - Command to open a floating terminal window
+vim.keymap.set('n', '<leader>T', function()
+  -- Open a PowerShell terminal as an editor tab
+  vim.fn.VSCodeNotify('workbench.action.terminal.newWithProfile', {
+    profileName = 'PowerShell',
+    location    = 'editor',
+  })
+
+  -- Wait 200 ms, then open new window
+  vim.defer_fn(function()
+    vim.fn.VSCodeNotify('workbench.action.moveEditorToNewWindow')
+  end, 200)
+end, {
+  noremap = true,
+  silent  = true,
+  desc    = 'Open PowerShell in editor then detach into new window',
+})
