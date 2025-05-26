@@ -28,6 +28,17 @@ vim.opt.shell = 'powershell.exe'
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- -- Better word wrapping;
+-- vim.opt.linebreak = true
+
+-- -- Set linebreak to false for markdown and text files
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "markdown", "text" },
+--   callback = function()
+--     vim.opt_local.linebreak = false
+--   end,
+-- })
+
 -- Save undo history
 vim.opt.undofile = true
 
