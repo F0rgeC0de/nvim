@@ -9,7 +9,7 @@ return {
     'ravitemer/codecompanion-history.nvim',
   },
 },
-  require('codecompanion').setup {
+  require('codecompanion').setup({
 
     strategies = {
       -- Change Default adapter
@@ -64,4 +64,4 @@ return {
         },
       },
     },
-  }
+  })
